@@ -13,7 +13,7 @@ def get_tasks():
 @app.route('/tasks', methods=['POST'])
 def add_task():
     data = request.json
-    tasks.append({'id': len(tasks) + 1, 'task': data['task']})
+    tasks.append({'id': tasks[-1]['id'] + 1 if tasks else 1, 'task': data['task'], 'priority': data.get('priority', 'Medium')})
     return jsonify({'message': 'Task added successfully!'})
 
 @app.route('/tasks/<int:task_id>', methods=['DELETE'])
